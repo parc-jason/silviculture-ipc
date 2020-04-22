@@ -28,6 +28,7 @@ oc create -n $NAMESPACE configmap silvipc-frontend-config \
 ```sh
 oc create -n $NAMESPACE configmap silvipc-sc-config \
   --from-literal=SC_CS_CHES_ENDPOINT=https://ches-master-9f0fbe-dev.pathfinder.gov.bc.ca/api \
+  --from-literal=SC_CS_CDOGS_ENDPOINT=https://cdogs-master-idcqvl-dev.pathfinder.gov.bc.ca/api \
   --from-literal=SC_CS_TOKEN_ENDPOINT=https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token
 ```
 

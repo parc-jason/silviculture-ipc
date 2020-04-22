@@ -3,7 +3,7 @@ const request = require('supertest');
 const helper = require('../../../common/helper');
 const router = require('../../../../src/routes/v1/email');
 
-const emailComponent = require('../../../../src/components/email');
+const chesService = require('../../../../src/chesService');
 
 // Simple Express Server
 const basePath = '/api/v1/email';
@@ -11,7 +11,7 @@ const app = helper.expressHelper(basePath, router);
 helper.logHelper();
 
 describe(`POST ${basePath}`, () => {
-  const sendRequestSpy = jest.spyOn(emailComponent, 'sendRequest');
+  const sendRequestSpy = jest.spyOn(chesService, 'send');
   let body;
 
   beforeEach(() => {
@@ -32,7 +32,6 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(response.body).toMatch('test');
     expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-    expect(sendRequestSpy).toHaveBeenCalledWith(body.comments, body.from, body.idir);
   });
 
   it('should yield a validation failure', async () => {
@@ -63,6 +62,5 @@ describe(`POST ${basePath}`, () => {
     expect(response.body).toBeTruthy();
     expect(response.body.detail).toBe(errMsg);
     expect(sendRequestSpy).toHaveBeenCalledTimes(1);
-    expect(sendRequestSpy).toHaveBeenCalledWith(body.comments, body.from, body.idir);
   });
 });

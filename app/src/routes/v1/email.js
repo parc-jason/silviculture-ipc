@@ -1,12 +1,20 @@
 const emailRouter = require('express').Router();
 const Problem = require('api-problem');
 
-const email = require('../../components/email');
+const chesService = require('../../chesService');
 const validation = require('../../middleware/validation');
 
 emailRouter.post('/', validation.validateEmail, async (req, res) => {
   try {
-    const result = await email.sendRequest(req.body.comments, req.body.from, req.body.idir);
+    const email = {
+      body: `<p>Message from Silviculture IPC</p> <p><strong>User comments:</strong><br/>${req.body.comments}`,
+      bodyType: 'html',
+      from: req.body.from,
+      priority: 'high',
+      to: ['NR.CommonServiceShowcase@gov.bc.ca'],
+      subject: `Silviculture IPC Message from ${req.body.idir}`
+    };
+    const result = await chesService.send(email);
     return res.status(201).json(result);
   } catch (error) {
     return new Problem(500, { detail: error.message }).send(res);
