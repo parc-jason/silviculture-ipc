@@ -115,6 +115,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     numberOfWorkers: {
       allowNull: false,
+      defaultValue: 0,
       type: DataTypes.INTEGER,
       unique: false
     }
