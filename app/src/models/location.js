@@ -120,7 +120,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     },
     updatedBy: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING(255),
       unique: false
     }
